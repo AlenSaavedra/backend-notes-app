@@ -1,54 +1,54 @@
-# Backend - API REST para Aplicación Web de Notas
+# Backend - REST API for Notes Web Application
 
-Este es el backend de la aplicación web de notas, desarrollado con **Java 23**, **Spring Boot**, **PostgreSQL**, y **Docker** para la contenedorización y despliegue en **Render**. La aplicación sigue la arquitectura de capas, separando la lógica de negocio en la capa de servicio (Service Layer).
+This is the backend for the notes web application, developed with **Java 23**, **Spring Boot**, **PostgreSQL**, and **Docker** for containerization and deployment on **Render**. The application follows a layered architecture, separating business logic in the Service Layer.
 
-## Frontend -> [Repositorio](https://github.com/AlenSaavedra/fronend-challenge-ensolvers)
+## Frontend -> [Repository](https://github.com/AlenSaavedra/fronend-challenge-ensolvers)
 
-## Descripción
+## Description
 
-La API proporciona los endpoints necesarios para gestionar la creación, edición, eliminación y filtrado de notas y etiquetas. La arquitectura está organizada en varias capas:
+The API provides the necessary endpoints to manage the creation, editing, deletion, and filtering of notes and tags. The architecture is organized into several layers:
 
-- **Controller Layer**: Maneja las peticiones HTTP y dirige las solicitudes a los servicios adecuados.
-- **Service Layer**: Contiene la lógica de negocio y procesa las solicitudes.
-- **Repository Layer**: Accede a la base de datos (PostgreSQL) a través de JPA (Java Persistence API).
+- **Controller Layer**: Handles HTTP requests and directs them to the appropriate services.
+- **Service Layer**: Contains business logic and processes requests.
+- **Repository Layer**: Accesses the database (PostgreSQL) through JPA (Java Persistence API).
 
 ## Endpoints
 
-La API tiene los siguientes endpoints:
+The API provides the following endpoints:
 
-### Notas
+### Notes
 
 - **GET /api/notes**  
-  Devuelve todas las notas almacenadas.
+  Returns all stored notes.
 
 - **GET /api/notes/{id}**  
-  Devuelve la nota con el ID especificado.
+  Returns the note with the specified ID.
 
 - **POST /api/notes**  
-  Crea una nueva nota.
+  Creates a new note.
 
 - **PUT /api/notes/{id}**  
-  Actualiza la nota con el ID especificado.
+  Updates the note with the specified ID.
 
 - **DELETE /api/notes/{id}**  
-  Elimina la nota con el ID especificado.
+  Deletes the note with the specified ID.
 
-### Etiquetas
+### Tags
 
 - **GET /api/tags**  
-  Devuelve todas las etiquetas disponibles.
+  Returns all available tags.
 
 - **GET /api/notes/filter?tag={tag}**  
-  Devuelve las notas filtradas por la etiqueta especificada.
+  Returns notes filtered by the specified tag.
 
-## Arquitectura
+## Architecture
 
-La aplicación sigue una arquitectura de capas para separar las responsabilidades y mantener el código organizado y fácil de mantener.
+The application follows a layered architecture to separate responsibilities and keep the code organized and maintainable.
 
 1. **Controller Layer**  
-   Gestiona las solicitudes HTTP y las direcciona a la capa de servicio. Los controladores reciben las peticiones y devuelven las respuestas.
+   Manages HTTP requests and directs them to the Service Layer. Controllers receive requests and return responses.
 
-   Ejemplo:
+   Example:
    ```java
    @RestController
    @RequestMapping("/api/notes")
@@ -67,14 +67,14 @@ La aplicación sigue una arquitectura de capas para separar las responsabilidade
            return noteService.createNote(note);
        }
 
-       // Otros endpoints...
+       // Other endpoints...
    }
    ```
 
 2. **Service Layer**  
-   Contiene la lógica de negocio. Los servicios procesan las solicitudes y gestionan las interacciones con el repositorio. 
+   Contains business logic. Services process requests and handle interactions with the repository. 
 
-   Ejemplo:
+   Example:
    ```java
    @Service
    public class NoteService {
@@ -90,14 +90,14 @@ La aplicación sigue una arquitectura de capas para separar las responsabilidade
            return noteRepository.save(note);
        }
 
-       // Otros métodos para actualizar, eliminar y filtrar notas
+       // Other methods for updating, deleting, and filtering notes
    }
    ```
 
 3. **Repository Layer**  
-   Utiliza Spring Data JPA para interactuar con la base de datos PostgreSQL. Aquí se definen los métodos para acceder a los datos.
+   Uses Spring Data JPA to interact with the PostgreSQL database. This layer defines methods to access data.
 
-   Ejemplo:
+   Example:
    ```java
    @Repository
    public interface NoteRepository extends JpaRepository<Note, Long> {
@@ -105,92 +105,91 @@ La aplicación sigue una arquitectura de capas para separar las responsabilidade
    }
    ```
 
-## Tecnologías utilizadas
+## Technologies Used
 
-- **Java 23**: Lenguaje de programación utilizado para el backend.
-- **Spring Boot**: Framework para construir la API REST.
-- **PostgreSQL**: Base de datos relacional para almacenar las notas y etiquetas.
-- **Docker**: Contenerización del backend para facilitar el despliegue.
-- **Render**: Plataforma para el despliegue de la aplicación.
-- **Maven**: Manejador de dependencias y construcción del proyecto.
+- **Java 23**: Programming language used for the backend.
+- **Spring Boot**: Framework to build the REST API.
+- **PostgreSQL**: Relational database to store notes and tags.
+- **Docker**: Containerization of the backend to simplify deployment.
+- **Render**: Platform for application deployment.
+- **Maven**: Dependency manager and project builder.
 
-## Requisitos
+## Requirements
 
 - **Java 23** (JDK)
 - **Maven**
-- **PostgreSQL** (debe estar en funcionamiento para almacenar los datos)
-- **Docker** (para ejecutar la aplicación de manera contenerizada)
+- **PostgreSQL** (must be running to store data)
+- **Docker** (to run the application in a containerized environment)
 
-## Instalación
+## Installation
 
-1. Clona el repositorio:
+1. Clone the repository:
 
    ```bash
    git clone https://github.com/AlenSaavedra/backend-notes-app.git
    ```
 
-2. Navega a la carpeta del proyecto:
+2. Navigate to the project folder:
 
    ```bash
-   cd tu-repositorio-backend
+   cd your-backend-repository
    ```
 
-3. Instala las dependencias:
+3. Install dependencies:
 
    ```bash
    mvn install
    ```
 
-4. Si deseas ejecutar la aplicación localmente con Docker, puedes usar el siguiente comando para construir y ejecutar el contenedor:
+4. If you want to run the application locally with Docker, use the following command to build and run the container:
 
    ```bash
    docker-compose up --build
    ```
 
-   Esto arrancará la aplicación en un contenedor junto con la base de datos PostgreSQL.
+   This will start the application in a container along with the PostgreSQL database.
 
-## Uso
+## Usage
 
-1. Asegúrate de tener PostgreSQL en funcionamiento (si no usas Docker para la base de datos).
-2. Inicia la aplicación:
+1. Ensure PostgreSQL is running (if not using Docker for the database).
+2. Start the application:
 
    ```bash
    mvn spring-boot:run
    ```
 
-3. La API estará disponible en `http://localhost:8080`.
+3. The API will be available at `http://localhost:8080`.
 
-4. La aplicación estará desplegada en Render una vez que se haya configurado el repositorio y se haya vinculado con la plataforma.
+4. The application will be deployed on Render once the repository is configured and linked to the platform.
 
-## Estructura del Proyecto
+## Project Structure
 
 ```
 /src
-  /controller        # Controladores para manejar las solicitudes HTTP
-  /service           # Lógica de negocio
-  /repository        # Repositorios para interactuar con la base de datos
-  /model             # Modelos de datos (Nota, Etiqueta)
-  /application.properties # Configuración de la aplicación
-  /Dockerfile        # Dockerfile para crear la imagen del backend
+  /controller        # Controllers to handle HTTP requests
+  /service           # Business logic
+  /repository        # Repositories to interact with the database
+  /model             # Data models (Note, Tag)
+  /application.properties # Application configuration
+  /Dockerfile        # Dockerfile to create the backend image
 ```
 
-## Contribuciones
+## Contributions
 
-Si deseas contribuir a este proyecto, por favor sigue estos pasos:
+If you want to contribute to this project, please follow these steps:
 
-1. Haz un fork del repositorio.
-2. Crea una rama para tu feature (`git checkout -b feature/mi-feature`).
-3. Haz tus cambios y haz commit de ellos (`git commit -am 'Añadir nueva feature'`).
-4. Sube tus cambios a tu fork (`git push origin feature/mi-feature`).
-5. Abre un Pull Request en el repositorio original.
+1. Fork the repository.
+2. Create a branch for your feature (`git checkout -b feature/my-feature`).
+3. Make your changes and commit them (`git commit -am 'Add new feature'`).
+4. Push your changes to your fork (`git push origin feature/my-feature`).
+5. Open a Pull Request in the original repository.
 
-## Licencia
+## License
 
-Este proyecto está bajo la Licencia MIT. Consulta el archivo [LICENSE](LICENSE) para más detalles.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
-## Autor
+## Author
 
 Alen Saavedra  
 [GitHub](https://github.com/AlenSaavedra) | [LinkedIn](https://www.linkedin.com/in/alensaavedra/)
 ```
-
