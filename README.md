@@ -2,6 +2,8 @@
 
 Este es el backend de la aplicación web de notas, desarrollado con **Java 23**, **Spring Boot**, **PostgreSQL**, y **Docker** para la contenedorización y despliegue en **Render**. La aplicación sigue la arquitectura de capas, separando la lógica de negocio en la capa de servicio (Service Layer).
 
+## Frontend -> [Repositorio](https://github.com/AlenSaavedra/fronend-challenge-ensolvers)
+
 ## Descripción
 
 La API proporciona los endpoints necesarios para gestionar la creación, edición, eliminación y filtrado de notas y etiquetas. La arquitectura está organizada en varias capas:
