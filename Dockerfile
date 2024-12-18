@@ -1,23 +1,23 @@
-# Use a base image of OpenJDK
+# Usa una imagen base de OpenJDK
 FROM openjdk:23-jdk-slim
 
-# Set the working directory
+# Establece el directorio de trabajo
 WORKDIR /app
 
-# Copy the project files into the Docker image
+# Copia solo los archivos necesarios
 COPY . /app
 
-# Install Maven (if necessary)
-RUN apt-get update && apt-get install -y maven
+# Instala Maven y actualiza la lista de paquetes en una sola capa
+RUN apt-get update && apt-get install -y maven && rm -rf /var/lib/apt/lists/*
 
-# Give permissions to mvnw (if necessary)
+# Da permisos a mvnw (si es necesario)
 RUN chmod +x ./mvnw
 
-# Run the command to build the project
-RUN ./mvnw clean install
+# Construye el proyecto con Maven
+RUN ./mvnw clean install -DskipTests
 
-# Expose the port for the Spring Boot application
+# Expone el puerto para la aplicación Spring Boot
 EXPOSE 8080
 
-# Command to start the application
+# Comando para iniciar la aplicación
 CMD ["./mvnw", "spring-boot:run"]
