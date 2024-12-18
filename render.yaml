@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: notes
+    env: java
+    buildCommand: |
+      export JAVA_HOME=/usr/lib/jvm/java-23-openjdk-amd64
+      chmod +x ./mvnw
+      ./mvnw clean install
+    startCommand: |
+      ./mvnw spring-boot:run
